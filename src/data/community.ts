@@ -26,6 +26,12 @@ export const INITIAL_POSTS: CommunityPost[] = [
         author: '法务老鸟',
         content: '应届生黄金窗口期只有一次，这种恶意解约必须在消费端让他们付出真金白银代价。',
         createdAt: '2026-09-09 09:30'
+      },
+      {
+        id: 'rep-1-3',
+        author: '同届求职苦主',
+        content: '太真实了，我们学校今年去常州的学弟学妹也被坑得不轻，必须持续曝光！',
+        createdAt: '2026-09-09 11:20'
       }
     ]
   },
@@ -48,6 +54,12 @@ export const INITIAL_POSTS: CommunityPost[] = [
         author: '手腕酸痛程序员',
         content: '同感，Master 3S 陪伴我敲了 3 年代码，支持尊重员工下班的企业！',
         createdAt: '2026-09-07 22:40'
+      },
+      {
+        id: 'rep-2-2',
+        author: '数码发烧友',
+        content: '罗技不仅鼠标好用，国内售后换新也是真不墨迹，必须支持合规企业。',
+        createdAt: '2026-09-08 10:14'
       }
     ]
   },
@@ -70,6 +82,12 @@ export const INITIAL_POSTS: CommunityPost[] = [
         author: '咖啡重度爱好者',
         content: '现在改在办公室自己用星巴克家享豆手冲或者买独立良心烘焙豆了，体验好得多。',
         createdAt: '2026-09-06 14:12'
+      },
+      {
+        id: 'rep-3-2',
+        author: '奶茶店离职打工人',
+        content: '连锁快消一线几乎都是这个死循环，只要消费者只看便宜，压榨就永远停不下来。',
+        createdAt: '2026-09-06 18:30'
       }
     ]
   },
@@ -85,7 +103,15 @@ export const INITIAL_POSTS: CommunityPost[] = [
     evidenceBadge: 'Fair Trade 认证',
     upvotes: 1840,
     repliesCount: 89,
-    createdAt: '2026-09-05'
+    createdAt: '2026-09-05',
+    replies: [
+      {
+        id: 'rep-4-1',
+        author: '徒步领队老周',
+        content: '迪卡侬也是性价比之神，基层员工真能享有大量运动假和健康福利，顶！',
+        createdAt: '2026-09-05 21:05'
+      }
+    ]
   },
   {
     id: 'post-5',
@@ -99,7 +125,27 @@ export const INITIAL_POSTS: CommunityPost[] = [
     evidenceBadge: '求证悬赏中',
     upvotes: 960,
     repliesCount: 112,
-    createdAt: '2026-09-04'
+    createdAt: '2026-09-04',
+    replies: [
+      {
+        id: 'rep-5-1',
+        author: '宜家上海前供应链员工',
+        content: '宜家的仓库和商场作息非常规范，超时 10 分钟就算加班，有严格的合规审计，可以放心买。',
+        createdAt: '2026-09-04 19:45'
+      },
+      {
+        id: 'rep-5-2',
+        author: '家居软体研发阿强',
+        content: '顾家和敏华部分产线旺季确实很顶，计件制加班比较多，如果介意建议多看看外企代工或者宜家系。',
+        createdAt: '2026-09-04 22:10'
+      },
+      {
+        id: 'rep-5-3',
+        author: '室内设计师小米',
+        content: '床垫推荐看看舒达或者金可儿的国内合资线，管理普遍比纯小作坊规范得多。',
+        createdAt: '2026-09-05 08:30'
+      }
+    ]
   }
 ];
 

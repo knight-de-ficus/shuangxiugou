@@ -244,8 +244,9 @@ export const CommunityLounge: React.FC = () => {
             {/* 回复折叠楼层 */}
             {expandedPostId === post.id && (
               <div className="pt-3 mt-3 border-t border-slate-100 space-y-3 bg-slate-50/60 p-4 rounded-2xl">
-                <div className="text-xs font-bold text-slate-800">
-                  讨论交流 ({post.replies?.length || 0})
+                <div className="text-xs font-bold text-slate-800 flex items-center justify-between">
+                  <span>精选讨论交流 ({post.replies?.length || 0})</span>
+                  <span className="text-[10px] text-slate-400 font-normal">全网共 {post.repliesCount} 位打工人参与互动</span>
                 </div>
 
                 <div className="space-y-2">
@@ -262,7 +263,7 @@ export const CommunityLounge: React.FC = () => {
                     </div>
                   ))}
                   {(!post.replies || post.replies.length === 0) && (
-                    <div className="text-[11px] text-slate-400 py-2">暂无回复，快来抢首评！</div>
+                    <div className="text-[11px] text-slate-400 py-2">暂无展开的精选回复，快来抢首评！</div>
                   )}
                 </div>
 
