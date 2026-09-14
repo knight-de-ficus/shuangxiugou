@@ -21,8 +21,8 @@
     {
       "matches": [
         "*://*.jd.com/*",
-        "*://item.taobao.com/*",
-        "*://detail.tmall.com/*",
+        "*://*.taobao.com/*",
+        "*://*.tmall.com/*",
         "*://*.yangkeduo.com/*"
       ],
       "js": ["data.js", "content.js"],

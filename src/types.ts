@@ -54,3 +54,49 @@ export interface BrandItem {
   // 双轨投票与员工真实评测
   employeeStats?: EmployeeVoteStats;
 }
+
+// 社区讨论帖类型
+export type PostCategory = 'avoid_trap' | 'recommend_wlb' | 'ask_intel';
+
+export interface CommunityPost {
+  id: string;
+  authorAlias: string; // 例如 "匿名打工人 #4802"
+  authorRole?: string; // 例如 "前某厂产线" | "现任外企研发" | "清醒消费者"
+  targetBrandName: string;
+  targetTier?: WlbTier;
+  category: PostCategory;
+  title: string;
+  content: string;
+  evidenceBadge?: string; // 例如 "附仲裁案号" | "工牌认证" | "消费凭据"
+  upvotes: number;
+  repliesCount: number;
+  createdAt: string;
+  replies?: Array<{
+    id: string;
+    author: string;
+    content: string;
+    createdAt: string;
+  }>;
+}
+
+// 导购品类聚合单元
+export interface CategoryProductPair {
+  id: string;
+  categoryName: string;
+  searchKeywords: string[];
+  boycottBrand: {
+    name: string;
+    tier: WlbTier;
+    reason: string;
+    keyProduct: string;
+  };
+  recommendedAlternatives: Array<{
+    id: string;
+    name: string;
+    tier: WlbTier;
+    policyLabel: string;
+    keyProduct: string;
+    highlight: string;
+    buyUrlHint?: string;
+  }>;
+}

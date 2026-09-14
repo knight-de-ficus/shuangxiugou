@@ -13,7 +13,10 @@ import {
   CheckCircle2, 
   Filter,
   Clock,
-  UserCheck
+  UserCheck,
+  ShoppingBag,
+  MessageSquare,
+  Compass
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { INITIAL_BRANDS, CATEGORIES } from './data';
@@ -21,8 +24,11 @@ import type { BrandItem, WlbTier } from './types';
 import { AnimatedCounter } from './components/AnimatedCounter';
 import { ReceiptModal } from './components/ReceiptModal';
 import { EmployeeVoteModal } from './components/EmployeeVoteModal';
+import { ShoppingLens } from './components/ShoppingLens';
+import { CommunityLounge } from './components/CommunityLounge';
 
 export function App() {
+  const [activeMainTab, setActiveMainTab] = useState<'brands' | 'shopping' | 'community'>('brands');
   const [brands, setBrands] = useState<BrandItem[]>(INITIAL_BRANDS);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('全部');
@@ -279,8 +285,72 @@ export function App() {
         </div>
       </section>
 
-      {/* 搜索与分类导航 */}
+      {/* 全局三大核心场景切换 Tab */}
+      <div className="bg-white border-b border-slate-200/80 sticky top-16 z-30 shadow-xs">
+        <div className="max-w-6xl mx-auto px-4 flex items-center justify-between">
+          <div className="flex gap-1 sm:gap-4 py-2">
+            <button
+              onClick={() => setActiveMainTab('brands')}
+              className={`flex items-center gap-2 py-2 px-3 sm:px-4 rounded-xl text-xs sm:text-sm font-black transition ${
+                activeMainTab === 'brands'
+                  ? 'bg-emerald-50 text-emerald-800 border-2 border-emerald-500 shadow-xs'
+                  : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100'
+              }`}
+            >
+              <Compass className="w-4 h-4 text-emerald-600" />
+              <span>企业真假双休档案</span>
+              <span className="text-[10px] font-mono bg-emerald-200/60 text-emerald-900 px-1.5 py-0.5 rounded-full">
+                {brands.length}
+              </span>
+            </button>
+
+            <button
+              onClick={() => setActiveMainTab('shopping')}
+              className={`flex items-center gap-2 py-2 px-3 sm:px-4 rounded-xl text-xs sm:text-sm font-black transition ${
+                activeMainTab === 'shopping'
+                  ? 'bg-emerald-50 text-emerald-800 border-2 border-emerald-500 shadow-xs'
+                  : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100'
+              }`}
+            >
+              <ShoppingBag className="w-4 h-4 text-emerald-600" />
+              <span>网购透镜 · 查避雷选平替</span>
+              <span className="text-[10px] bg-rose-500 text-white font-bold px-1.5 py-0.5 rounded-full uppercase tracking-widest">
+                HOT
+              </span>
+            </button>
+
+            <button
+              onClick={() => setActiveMainTab('community')}
+              className={`flex items-center gap-2 py-2 px-3 sm:px-4 rounded-xl text-xs sm:text-sm font-black transition ${
+                activeMainTab === 'community'
+                  ? 'bg-emerald-50 text-emerald-800 border-2 border-emerald-500 shadow-xs'
+                  : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100'
+              }`}
+            >
+              <MessageSquare className="w-4 h-4 text-emerald-600" />
+              <span>打工人茶水间 · 讨论广场</span>
+              <span className="text-[10px] font-mono bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded-full">
+                交流区
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* 核心内容区 */}
       <main className="max-w-6xl mx-auto px-4 py-8 flex-1 w-full space-y-6">
+        {activeMainTab === 'shopping' && (
+          <ShoppingLens
+            brands={brands}
+            onSelectBrand={(b) => setSelectedBrand(b)}
+            onOpenTicket={(b) => openTicketGenerator(b)}
+          />
+        )}
+
+        {activeMainTab === 'community' && <CommunityLounge />}
+
+        {activeMainTab === 'brands' && (
+          <>
         <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-4">
           {/* 搜索框 */}
           <div className="relative">
@@ -321,9 +391,9 @@ export function App() {
               <button
                 key={tier}
                 onClick={() => setSelectedTier(tier)}
-                className={`text-xs px-2.5 py-1 rounded-md font-medium transition ${
+                className={`text-xs px-3 py-1 rounded-md font-mono font-bold transition ${
                   selectedTier === tier
-                    ? 'bg-slate-800 text-white'
+                    ? 'bg-slate-900 text-white'
                     : 'bg-slate-100 hover:bg-slate-200 text-slate-600'
                 }`}
               >
@@ -333,7 +403,7 @@ export function App() {
           </div>
         </div>
 
-        {/* 品牌列表卡片网格 */}
+        {/* 品牌列表网格 */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filteredBrands.map((brand) => {
             const hasBoycotted = userVoteHistory[brand.id] === 'down';
@@ -510,19 +580,21 @@ export function App() {
         </div>
 
         {filteredBrands.length === 0 && (
-          <div className="text-center py-16 bg-white rounded-2xl border border-dashed border-slate-300 space-y-3">
-            <HelpCircle className="w-10 h-10 text-slate-300 mx-auto" />
-            <div className="text-slate-600 font-medium">未找到匹配的品牌信息</div>
-            <p className="text-xs text-slate-400 max-w-sm mx-auto">
-              库里还没有收录你查的品牌？欢迎点击右上角提交爆料或发起“求扒求证”。
-            </p>
-            <button
-              onClick={() => setShowContributeModal(true)}
-              className="inline-flex items-center gap-1 text-xs bg-emerald-600 text-white px-3.5 py-2 rounded-lg font-bold hover:bg-emerald-500 transition"
-            >
-              + 我来提供这家企业信息
-            </button>
-          </div>
+              <div className="text-center py-16 bg-white rounded-2xl border border-dashed border-slate-300 space-y-3">
+                <HelpCircle className="w-10 h-10 text-slate-300 mx-auto" />
+                <div className="text-slate-600 font-medium">未找到匹配的品牌信息</div>
+                <p className="text-xs text-slate-400 max-w-sm mx-auto">
+                  库里还没有收录你查的品牌？欢迎点击右上角提交爆料或发起“求扒求证”。
+                </p>
+                <button
+                  onClick={() => setShowContributeModal(true)}
+                  className="inline-flex items-center gap-1 text-xs bg-emerald-600 text-white px-3.5 py-2 rounded-lg font-bold hover:bg-emerald-500 transition"
+                >
+                  + 我来提供这家企业信息
+                </button>
+              </div>
+            )}
+          </>
         )}
       </main>
 
