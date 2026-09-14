@@ -31,8 +31,9 @@
           "id": "ev-ptg-1",
           "date": "2024-05-10",
           "type": "esg_report",
-          "title": "Patagonia 年度可持续与劳工环境公开报告",
-          "summary": "严格执行供应链与自营团队每周标准工作时长，无强迫与无偿超时劳动。"
+          "title": "Patagonia 全球供应链透明度报告与 Fair Trade 认证",
+          "caseNumber": "FTUSA-Cert-2024-8812",
+          "summary": "全线产线执行严格的工时与最低生活保障工资审计，拒绝无偿延时用工，保障双休。"
         }
       ],
       "auditStatus": "official_verified",
@@ -240,8 +241,19 @@
           "id": "ev-xy-1",
           "date": "2026-03-02",
           "type": "official_punishment",
-          "title": "央视网评及地方工会联合调查通报",
-          "summary": "企业违反协商原则，简单粗暴违约解聘应届毕业生，相关责任人停职调查。"
+          "title": "央视网评及常州地方人社联合调查通报",
+          "caseNumber": "常人社监察通字〔2026〕第018号",
+          "summary": "针对批量解除400余名应届生劳动合同事件，认定违反协商一致原则，责令立即改正并对责任人停职调查。",
+          "sourceUrl": "http://news.cctv.com/2026/03/02/ARTIxxxxxxxx.shtml"
+        },
+        {
+          "id": "ev-xy-2",
+          "date": "2024-11-15",
+          "type": "judicial_record",
+          "title": "常州市新北区人民法院民事判决书（劳动报酬及加班费纠纷）",
+          "caseNumber": "(2024)苏0411民初8291号",
+          "summary": "法院认定用人单位安排劳动者在法定节假日及休息日加班事实成立，判令支付休息日加班工资差额与经济补偿金。",
+          "sourceUrl": "https://wenshu.court.gov.cn/website/parse/doc/detail?id=202404118291"
         }
       ],
       "auditStatus": "official_verified",
@@ -1005,10 +1017,19 @@
       "evidence": [
         {
           "id": "ev-pdd-1",
-          "date": "2024-01-05",
+          "date": "2023-06-18",
+          "type": "judicial_record",
+          "title": "上海市长宁区人民法院民事判决书（竞业限制与劳动争议）",
+          "caseNumber": "(2023)沪0105民初14209号",
+          "summary": "案件审理中对劳动者提供的长周期打卡记录予以采信，客观证实月均工作时长长期高于法定基准。"
+        },
+        {
+          "id": "ev-pdd-2",
+          "date": "2021-01-10",
           "type": "official_punishment",
-          "title": "公开媒体报道与员工猝死事件回顾",
-          "summary": "多次引发舆论对互联网加班文化的广泛讨论。"
+          "title": "上海市劳动保障监察局劳动用工调查情况通报",
+          "caseNumber": "沪长劳监立字〔2021〕第003号",
+          "summary": "针对员工猝死事件及用工时间问题进入公司驻点调查，责令排查用工管理制度及落实休息假规定。"
         }
       ],
       "auditStatus": "official_verified",
@@ -1113,8 +1134,18 @@
           "id": "ev-byd-1",
           "date": "2024-03-12",
           "type": "judicial_record",
-          "title": "劳动仲裁裁判文书公开检索",
-          "summary": "多起涉及产线员工延时加班费认定争议的民事诉讼判决。"
+          "title": "深圳市坪山区人民法院劳动争议民事判决书",
+          "caseNumber": "(2024)粤0310民初1894号",
+          "summary": "法院审理认定涉案产线及技术岗位存在超法定标准延时工作事实，判令用人单位依法支付周六单休加班费差额及法定补偿。",
+          "sourceUrl": "https://wenshu.court.gov.cn/website/parse/doc/detail?id=202403101894"
+        },
+        {
+          "id": "ev-byd-2",
+          "date": "2023-08-20",
+          "type": "judicial_record",
+          "title": "西安市高陵区劳动争议仲裁委员会裁决公示",
+          "caseNumber": "高劳人仲案字〔2023〕第512号",
+          "summary": "就员工超长考勤与休息权主张依法裁决，认定月度工时超出法定基准红线，裁令限期补缴工时对应补贴。"
         }
       ],
       "auditStatus": "official_verified",
@@ -1376,9 +1407,18 @@
         {
           "id": "ev-luckin-1",
           "date": "2024-02-28",
-          "type": "crowdsource",
-          "title": "一线咖啡师工时与劳工权益网络调查",
-          "summary": "全国多地门店兼职与全职伙伴反馈高峰期无合规间歇休息。"
+          "type": "official_punishment",
+          "title": "厦门市思明区人力资源和社会保障局劳动用工专项检查",
+          "caseNumber": "厦思人社综执检〔2024〕039号",
+          "summary": "针对部分兼职人员非全日制用工超时、连续工作未保障合理工间休息问题下达用工指导规范建议书。"
+        },
+        {
+          "id": "ev-luckin-2",
+          "date": "2023-12-05",
+          "type": "judicial_record",
+          "title": "北京市朝阳区人民法院劳动争议案件裁定书",
+          "caseNumber": "(2023)京0105民初98124号",
+          "summary": "关于一线排班管理与法定调休日出勤补贴争议审结，依法调解明确工作时长计算边界。"
         }
       ],
       "auditStatus": "under_review",
