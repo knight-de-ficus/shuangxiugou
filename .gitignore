@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+# Resilient publishing runtime state and private keys
+deploy/resilient/runtime/*
+!deploy/resilient/runtime/.gitkeep
+deploy/resilient/secrets/*
+!deploy/resilient/secrets/.gitkeep
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

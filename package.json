@@ -1,5 +1,5 @@
 {
-  "name": "-",
+  "name": "shuangxiugou",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,9 +7,16 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "resweb:keygen": "node tools/resilient-web/cli.mjs keygen",
+    "resweb:publish": "node tools/resilient-web/cli.mjs publish",
+    "resweb:verify": "node tools/resilient-web/cli.mjs verify",
+    "resweb:sync": "node tools/resilient-web/cli.mjs sync",
+    "resweb:gateway": "node tools/resilient-web/gateway.mjs",
+    "test:resweb": "node --test tools/resilient-web/*.test.mjs"
   },
   "dependencies": {
+    "canonicalize": "2.1.0",
     "canvas-confetti": "^1.9.4",
     "html-to-image": "^1.11.13",
     "lucide-react": "^1.42.0",

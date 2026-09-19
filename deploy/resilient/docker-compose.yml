@@ -1,0 +1,74 @@
+name: shuangxiugou-resilient-web
+
+services:
+  kubo:
+    image: ipfs/kubo:v0.43.1
+    environment:
+      IPFS_PROFILE: server
+      GOMAXPROCS: "2"
+      GOMEMLIMIT: 900MiB
+    volumes:
+      - kubo-data:/data/ipfs
+    ports:
+      - "4001:4001/tcp"
+      - "4001:4001/udp"
+      - "127.0.0.1:5001:5001/tcp"
+      - "127.0.0.1:8080:8080/tcp"
+    healthcheck:
+      test: ["CMD", "ipfs", "id"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+
+  verifier:
+    build:
+      context: ../..
+      dockerfile: deploy/resilient/Dockerfile
+    environment:
+      MANIFEST_PATH: /app/runtime/current.manifest.json
+      PUBLIC_KEY_PATH: /app/secrets/publisher.pub.pem
+      STATE_PATH: /app/runtime/verification-state.json
+      KUBO_GATEWAY_URL: http://kubo:8080
+      PORT: "8787"
+    volumes:
+      - ./runtime:/app/runtime
+      - ./secrets:/app/secrets:ro
+    depends_on:
+      kubo:
+        condition: service_healthy
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,noexec,nosuid
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    restart: unless-stopped
+
+  edge:
+    image: caddy:2.10.2-alpine
+    environment:
+      SITE_DOMAIN: ${SITE_DOMAIN:-localhost}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    ports:
+      - "80:80/tcp"
+      - "443:443/tcp"
+      - "443:443/udp"
+    depends_on:
+      - verifier
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+volumes:
+  kubo-data:
+  caddy-data:
+  caddy-config:

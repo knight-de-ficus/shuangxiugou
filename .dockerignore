@@ -1,0 +1,6 @@
+.git
+node_modules
+dist
+deploy/resilient/runtime
+deploy/resilient/secrets
+*.log

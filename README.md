@@ -55,6 +55,37 @@ npm run build
 3. Framework Preset 选择 **Vite**，根目录保持默认，点击 **Deploy** 即可上线。
 4. 项目自带 `vercel.json` 自动处理单页应用路由重写与安全头。
 
+### 弹性分布式发布
+
+项目已内置 signed manifest、IPFS/Kubo、验证 Gateway 与 Caddy HTTP/3 部署方案。它用于增加 DNS 故障、入口失效与源站离线时的恢复路径；传统域名仍保留为普通浏览器入口。
+
+- 架构与信任边界：[`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
+- 完整部署步骤：[`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)
+- 监控、回退和密钥事故：[`docs/OPERATIONS.md`](docs/OPERATIONS.md)
+
+服务器一键部署：
+
+```bash
+# Ubuntu / Debian
+sudo ./scripts/deploy-linux.sh --domain edge.example.com --email admin@example.com
+```
+
+```powershell
+# Windows Server 2019/2022/2025（管理员 PowerShell）
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\deploy-windows-server.ps1 `
+  -Domain edge.example.com -Email admin@example.com
+```
+
+脚本会备份现有状态、验证依赖包并在失败时尝试回退。域名解析、云安全组和上级 NAT 仍需按实际服务商配置，详见 [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md#0-一键部署推荐)。
+
+快速查看命令：
+
+```bash
+npm run resweb:keygen
+npm run resweb:publish -- --sequence 1
+npm run resweb:verify
+```
+
 ---
 
 ## ⚖️ 免责声明
