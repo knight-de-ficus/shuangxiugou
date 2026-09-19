@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" role="img" aria-labelledby="logo-title">
+  <title id="logo-title">双休购</title>
+  <defs>
+    <mask id="cart-mask">
+      <rect width="120" height="120" fill="#fff" />
+      <circle cx="48" cy="88" r="8.5" fill="#000" />
+      <circle cx="75" cy="88" r="8.5" fill="#000" />
+    </mask>
+  </defs>
+  <path
+    d="M24 30 L27 38 H91 L87 57 H34 L41 76 H81"
+    fill="none"
+    stroke="#f04d90"
+    stroke-width="13"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    mask="url(#cart-mask)"
+  />
+  <circle cx="48" cy="88" r="6.5" fill="#3498c9" />
+  <circle cx="75" cy="88" r="6.5" fill="#3498c9" />
+</svg>

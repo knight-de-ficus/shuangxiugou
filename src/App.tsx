@@ -26,6 +26,7 @@ import { ReceiptModal } from './components/ReceiptModal';
 import { EmployeeVoteModal } from './components/EmployeeVoteModal';
 import { ShoppingLens } from './components/ShoppingLens';
 import { CommunityLounge } from './components/CommunityLounge';
+import { getBrandMark } from './utils/brand.js';
 
 export function App() {
   const [activeMainTab, setActiveMainTab] = useState<'brands' | 'shopping' | 'community'>('brands');
@@ -155,25 +156,25 @@ export function App() {
     switch (tier) {
       case 'S':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-black tracking-wide bg-emerald-50 text-emerald-800 border-2 border-emerald-500 shadow-xs uppercase">
+          <span className="inline-flex shrink-0 items-center gap-1 px-2.5 py-1 rounded-md text-xs font-bold whitespace-nowrap bg-emerald-50 text-emerald-800 border border-emerald-300">
             <Sparkles className="w-3.5 h-3.5 text-emerald-600" /> S级 · 标杆模范
           </span>
         );
       case 'A':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-black tracking-wide bg-teal-50 text-teal-800 border-2 border-teal-500 shadow-xs uppercase">
+          <span className="inline-flex shrink-0 items-center gap-1 px-2.5 py-1 rounded-md text-xs font-bold whitespace-nowrap bg-teal-50 text-teal-800 border border-teal-300">
             <ShieldCheck className="w-3.5 h-3.5 text-teal-600" /> A级 · 合规双休
           </span>
         );
       case 'B':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-black tracking-wide bg-amber-50 text-amber-900 border-2 border-amber-500 shadow-xs uppercase">
+          <span className="inline-flex shrink-0 items-center gap-1 px-2.5 py-1 rounded-md text-xs font-bold whitespace-nowrap bg-amber-50 text-amber-900 border border-amber-300">
             <HelpCircle className="w-3.5 h-3.5 text-amber-600" /> B级 · 存疑/大小周
           </span>
         );
       case 'C':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-black tracking-wide bg-rose-50 text-rose-900 border-2 border-rose-500 shadow-xs uppercase">
+          <span className="inline-flex shrink-0 items-center gap-1 px-2.5 py-1 rounded-md text-xs font-bold whitespace-nowrap bg-rose-50 text-rose-900 border border-rose-300">
             <AlertTriangle className="w-3.5 h-3.5 text-rose-600" /> C级 · 避雷预警
           </span>
         );
@@ -181,18 +182,16 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-slate-800 flex flex-col bg-noise selection:bg-emerald-500 selection:text-white">
+    <div className="min-h-screen bg-[#f5f5f1] text-slate-800 flex flex-col selection:bg-emerald-600 selection:text-white">
       {/* 顶部导航 */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200">
+      <header className="sticky top-0 z-40 bg-[#fbfbf8]/95 backdrop-blur-md border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white font-black text-xl shadow-md shadow-emerald-500/20">
-              休
-            </div>
+            <img src="/logo.svg" alt="双休购 Logo" className="w-10 h-10 shrink-0" />
             <div>
-              <span className="text-xl font-black tracking-tight text-slate-900">双休购 · ShuangxiuGo</span>
+              <span className="text-lg sm:text-xl font-extrabold tracking-tight text-slate-900 whitespace-nowrap">双休购 <span className="text-slate-400 font-medium">/ ShuangxiuGo</span></span>
               <span className="hidden sm:inline-block ml-2 text-xs bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-medium border border-emerald-200">
-                反向考核企业
+                劳工友好品牌索引
               </span>
             </div>
           </div>
@@ -200,7 +199,7 @@ export function App() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setShowContributeModal(true)}
-              className="text-xs sm:text-sm bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition"
+              className="hidden sm:inline-flex text-xs sm:text-sm bg-transparent hover:bg-slate-100 text-slate-700 px-3 py-1.5 rounded-md font-medium whitespace-nowrap transition"
             >
               + 提交爆料 / 推荐
             </button>
@@ -208,7 +207,7 @@ export function App() {
               href="https://github.com/ZhiqingHeyi/shuangxiugou"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm bg-slate-900 hover:bg-slate-800 text-white px-3 py-1.5 rounded-lg font-medium shadow-sm transition"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm bg-slate-900 hover:bg-slate-800 text-white px-3 py-1.5 rounded-md font-medium whitespace-nowrap transition"
             >
               <span>★ Star on GitHub</span>
             </a>
@@ -217,36 +216,29 @@ export function App() {
       </header>
 
       {/* 主体大标语与统计看板 */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50/80 to-slate-100/60 border-b border-slate-200/80 py-14 px-4">
-        {/* 背景光斑效果 */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-64 bg-gradient-to-b from-emerald-100/30 to-transparent blur-3xl pointer-events-none" />
-
-        <div className="max-w-4xl mx-auto text-center space-y-5 relative">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50/90 border border-emerald-300 text-emerald-800 text-xs font-semibold shadow-xs">
+      <section className="bg-[#fbfbf8] border-b border-slate-200 py-12 sm:py-16 px-4">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-[1fr_480px] gap-10 lg:gap-14 items-end">
+          <div className="space-y-5">
+          <div className="inline-flex items-center gap-2 text-emerald-800 text-xs font-semibold tracking-wide whitespace-nowrap">
             <ShieldCheck className="w-4 h-4 text-emerald-600" />
-            <span>把老板考核你的 KPI，变成打工人考核老板的货币选票</span>
+            <span>公开证据 · 员工反馈 · 消费选择</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-950 tracking-tight leading-[1.15]">
-            让消费者与在职员工，
-            <br />
-            <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 bg-clip-text text-transparent">
-              真正重新考核每一家企业
-            </span>
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-950 tracking-[-0.035em] leading-[1.08] max-w-3xl">
+            买东西以前，先看看一家企业怎样对待员工。
           </h1>
 
-          <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            打通司法仲裁公开事实、ESG 报告、<strong className="text-slate-900 font-semibold">企业员工匿名工牌实测</strong> 与 <strong className="text-slate-900 font-semibold">消费者货币投票</strong>。
-            <br className="hidden sm:inline" />
-            买东西前查一眼，避开单休与违约企业，把每一笔订单留给守法尊严者。
+          <p className="text-slate-600 text-base max-w-2xl leading-7">
+            双休购整理司法文书、监管通报、企业公开资料与员工反馈，帮助消费者识别真正落实双休、尊重劳动权益的品牌。
           </p>
+          </div>
 
           {/* 实时转移消费计数看板 */}
-          <div className="pt-4 max-w-xl mx-auto space-y-3">
-            <div className="bg-slate-900 text-white rounded-2xl p-5 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="space-y-3">
+            <div className="bg-slate-900 text-white rounded-xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="text-left">
-                <div className="text-xs text-slate-400 font-medium">全网打工人已转移消费额 (脚投币票)</div>
-                <div className="text-2xl sm:text-3xl font-mono font-black text-emerald-400">
+                <div className="text-xs text-slate-400 font-medium whitespace-nowrap">社区记录的消费选择</div>
+                <div className="text-2xl sm:text-3xl font-mono font-bold text-emerald-400 whitespace-nowrap">
                   <AnimatedCounter value={transferredAmount} />
                 </div>
               </div>
@@ -255,7 +247,7 @@ export function App() {
                   setTicketBrand(brands[0]);
                   setShowTicketModal(true);
                 }}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-2.5 rounded-xl transition text-sm shadow-md"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-2.5 rounded-md whitespace-nowrap transition text-sm"
               >
                 <Receipt className="w-4 h-4" />
                 打卡并生成小票
@@ -264,19 +256,19 @@ export function App() {
 
             {/* 数据收录统计指标 */}
             <div className="grid grid-cols-4 gap-2 text-center text-xs">
-              <div className="bg-white p-2.5 rounded-xl border border-slate-200 shadow-xs">
+              <div className="bg-white p-2.5 rounded-md border border-slate-200">
                 <div className="font-bold text-slate-900 text-base">{brands.length}</div>
                 <div className="text-slate-400 text-[11px]">收录品牌</div>
               </div>
-              <div className="bg-emerald-50/60 p-2.5 rounded-xl border border-emerald-200 shadow-xs">
+              <div className="bg-emerald-50/60 p-2.5 rounded-md border border-emerald-200">
                 <div className="font-bold text-emerald-700 text-base">{brands.filter(b => b.tier === 'S' || b.tier === 'A').length}</div>
                 <div className="text-emerald-700/70 text-[11px]">双休红榜</div>
               </div>
-              <div className="bg-amber-50/60 p-2.5 rounded-xl border border-amber-200 shadow-xs">
+              <div className="bg-amber-50/60 p-2.5 rounded-md border border-amber-200">
                 <div className="font-bold text-amber-700 text-base">{brands.filter(b => b.tier === 'B').length}</div>
                 <div className="text-amber-700/70 text-[11px]">大小周观察</div>
               </div>
-              <div className="bg-rose-50/60 p-2.5 rounded-xl border border-rose-200 shadow-xs">
+              <div className="bg-rose-50/60 p-2.5 rounded-md border border-rose-200">
                 <div className="font-bold text-rose-700 text-base">{brands.filter(b => b.tier === 'C').length}</div>
                 <div className="text-rose-700/70 text-[11px]">避雷预警</div>
               </div>
@@ -287,11 +279,11 @@ export function App() {
 
       {/* 全局三大核心场景切换 Tab */}
       <div className="bg-white border-b border-slate-200/80 sticky top-16 z-30 shadow-xs">
-        <div className="max-w-6xl mx-auto px-4 flex items-center justify-between">
-          <div className="flex gap-1 sm:gap-4 py-2">
+        <div className="max-w-6xl mx-auto px-4 overflow-x-auto scrollbar-none">
+          <div className="flex w-max min-w-full gap-1 sm:gap-3 py-2">
             <button
               onClick={() => setActiveMainTab('brands')}
-              className={`flex items-center gap-2 py-2 px-3 sm:px-4 rounded-xl text-xs sm:text-sm font-black transition ${
+              className={`flex shrink-0 items-center gap-2 py-2 px-3 sm:px-4 rounded-md text-xs sm:text-sm font-bold whitespace-nowrap transition ${
                 activeMainTab === 'brands'
                   ? 'bg-emerald-50 text-emerald-800 border-2 border-emerald-500 shadow-xs'
                   : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100'
@@ -306,7 +298,7 @@ export function App() {
 
             <button
               onClick={() => setActiveMainTab('shopping')}
-              className={`flex items-center gap-2 py-2 px-3 sm:px-4 rounded-xl text-xs sm:text-sm font-black transition ${
+              className={`flex shrink-0 items-center gap-2 py-2 px-3 sm:px-4 rounded-md text-xs sm:text-sm font-bold whitespace-nowrap transition ${
                 activeMainTab === 'shopping'
                   ? 'bg-emerald-50 text-emerald-800 border-2 border-emerald-500 shadow-xs'
                   : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100'
@@ -321,7 +313,7 @@ export function App() {
 
             <button
               onClick={() => setActiveMainTab('community')}
-              className={`flex items-center gap-2 py-2 px-3 sm:px-4 rounded-xl text-xs sm:text-sm font-black transition ${
+              className={`flex shrink-0 items-center gap-2 py-2 px-3 sm:px-4 rounded-md text-xs sm:text-sm font-bold whitespace-nowrap transition ${
                 activeMainTab === 'community'
                   ? 'bg-emerald-50 text-emerald-800 border-2 border-emerald-500 shadow-xs'
                   : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100'
@@ -351,7 +343,7 @@ export function App() {
 
         {activeMainTab === 'brands' && (
           <>
-        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div className="bg-white p-4 rounded-xl border border-slate-200 space-y-4">
           {/* 搜索框 */}
           <div className="relative">
             <Search className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -377,7 +369,7 @@ export function App() {
                   selectedCategory === cat
                     ? 'bg-emerald-600 text-white shadow-sm'
                     : 'bg-slate-100 hover:bg-slate-200 text-slate-600'
-                }`}
+                } whitespace-nowrap`}
               >
                 {cat}
               </button>
@@ -395,7 +387,7 @@ export function App() {
                   selectedTier === tier
                     ? 'bg-slate-900 text-white'
                     : 'bg-slate-100 hover:bg-slate-200 text-slate-600'
-                }`}
+                } whitespace-nowrap`}
               >
                 {tier === '全部' ? '全部评级' : `${tier} 级`}
               </button>
@@ -412,23 +404,23 @@ export function App() {
             return (
               <div
                 key={brand.id}
-                className={`bg-white rounded-2xl border transition-all duration-200 hover:-translate-y-1 hover:shadow-lg flex flex-col justify-between overflow-hidden relative group ${
+                className={`bg-white rounded-xl border transition-shadow duration-200 hover:shadow-md flex flex-col justify-between overflow-hidden relative group ${
                   brand.tier === 'C'
-                    ? 'border-rose-300 bg-gradient-to-b from-rose-50/40 to-white shadow-rose-500/5'
+                    ? 'border-rose-200 border-l-4 border-l-rose-500'
                     : brand.tier === 'S'
-                    ? 'border-emerald-300 bg-gradient-to-b from-emerald-50/30 to-white shadow-emerald-500/5'
+                    ? 'border-emerald-200 border-l-4 border-l-emerald-600'
                     : 'border-slate-200/80 shadow-slate-900/5'
                 }`}
               >
                 <div className="p-5 space-y-3.5">
                   <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-slate-700 text-sm">
-                        {brand.logoText}
+                    <div className="flex min-w-0 items-center gap-2.5">
+                      <div className="w-10 h-10 shrink-0 rounded-md bg-slate-100 border border-slate-200 flex items-center justify-center font-extrabold tracking-tight text-slate-700 text-sm" aria-label={`${brand.name} 标识`} title={brand.logoText}>
+                        {getBrandMark(brand.logoText)}
                       </div>
-                      <div>
-                        <h3 className="font-bold text-slate-900 text-base leading-snug">{brand.name}</h3>
-                        <p className="text-xs text-slate-400 truncate max-w-[180px]">{brand.companyName}</p>
+                      <div className="min-w-0">
+                        <h3 className="font-bold text-slate-900 text-base leading-snug truncate">{brand.name}</h3>
+                        <p className="text-xs text-slate-400 truncate max-w-[180px]" title={brand.companyName}>{brand.companyName}</p>
                       </div>
                     </div>
                     {getTierBadge(brand.tier)}
@@ -438,11 +430,11 @@ export function App() {
                   <div className="bg-slate-50 rounded-xl p-2.5 border border-slate-100 text-xs space-y-1.5">
                     <div className="flex items-center justify-between text-slate-700">
                       <span className="text-slate-400">工时政策：</span>
-                      <span className="font-semibold">{brand.weekendPolicyLabel}</span>
+                      <span className="font-semibold whitespace-nowrap pl-2">{brand.weekendPolicyLabel}</span>
                     </div>
                     <div className="flex items-center justify-between text-slate-700">
                       <span className="text-slate-400">加班对待：</span>
-                      <span className="font-semibold">{brand.overtimeLabel}</span>
+                      <span className="font-semibold whitespace-nowrap pl-2">{brand.overtimeLabel}</span>
                     </div>
                   </div>
 
@@ -486,7 +478,7 @@ export function App() {
                     {brand.keyProducts.map((p, idx) => (
                       <span
                         key={idx}
-                        className="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md font-medium"
+                        className="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md font-medium whitespace-nowrap"
                       >
                         {p}
                       </span>
@@ -508,7 +500,7 @@ export function App() {
                             <button
                               key={alt.id}
                               onClick={() => setSelectedBrand(alt)}
-                              className="bg-white hover:bg-emerald-100 border border-emerald-300 text-emerald-800 px-2 py-0.5 rounded text-[11px] font-medium transition flex items-center gap-1"
+                              className="bg-white hover:bg-emerald-100 border border-emerald-300 text-emerald-800 px-2 py-0.5 rounded text-[11px] font-medium whitespace-nowrap transition flex items-center gap-1"
                             >
                               <span>{alt.name}</span>
                               <ChevronRight className="w-3 h-3 text-emerald-500" />
@@ -521,11 +513,11 @@ export function App() {
                 </div>
 
                 {/* 底部交互区 */}
-                <div className="px-5 py-3 bg-slate-50/70 border-t border-slate-100 flex items-center justify-between text-xs">
+                <div className="px-5 py-3 bg-slate-50/70 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs">
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => handleUpvote(brand.id)}
-                      className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border transition ${
+                      className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border whitespace-nowrap transition ${
                         hasUpvoted
                           ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
                           : 'bg-white hover:bg-slate-100 text-slate-600 border-slate-200'
@@ -537,7 +529,7 @@ export function App() {
                     </button>
                     <button
                       onClick={() => handleBoycott(brand.id)}
-                      className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border transition ${
+                      className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border whitespace-nowrap transition ${
                         hasBoycotted
                           ? 'bg-rose-100 text-rose-800 border-rose-300'
                           : 'bg-white hover:bg-slate-100 text-slate-600 border-slate-200'
@@ -549,10 +541,10 @@ export function App() {
                     </button>
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center justify-end gap-2">
                     <button
                       onClick={() => setVotingEmployeeBrand(brand)}
-                      className="text-slate-600 hover:text-emerald-700 font-medium inline-flex items-center gap-1 bg-white hover:bg-emerald-50 px-2 py-1 rounded-lg border border-slate-200"
+                      className="text-slate-600 hover:text-emerald-700 font-medium inline-flex items-center gap-1 bg-white hover:bg-emerald-50 px-2 py-1 rounded-lg border border-slate-200 whitespace-nowrap"
                       title="我是内部员工/离职员工，我要实名/匿名投票"
                     >
                       <UserCheck className="w-3.5 h-3.5 text-emerald-600" />
@@ -560,14 +552,14 @@ export function App() {
                     </button>
                     <button
                       onClick={() => openTicketGenerator(brand)}
-                      className="text-slate-600 hover:text-emerald-700 font-medium inline-flex items-center gap-1"
+                      className="text-slate-600 hover:text-emerald-700 font-medium inline-flex items-center gap-1 whitespace-nowrap"
                     >
                       <Receipt className="w-3.5 h-3.5" />
                       <span>打卡</span>
                     </button>
                     <button
                       onClick={() => setSelectedBrand(brand)}
-                      className="text-emerald-600 hover:text-emerald-700 font-bold inline-flex items-center gap-0.5"
+                      className="text-emerald-600 hover:text-emerald-700 font-bold inline-flex items-center gap-0.5 whitespace-nowrap"
                     >
                       <span>详情证据</span>
                       <ChevronRight className="w-3.5 h-3.5" />
